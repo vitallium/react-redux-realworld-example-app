@@ -13,20 +13,27 @@ cache:
   paths:
     - .npm/
 
-before_script:
-  - npm ci --cache .npm --prefer-offline
+.default-cache: &default-cache
+  before_script:
+    - npm ci --cache .npm --prefer-offline
 
 eslint:
+  extends:
+    - .default-cache
   stage: lint
   script:
     - npm run lint
 
 prettier:
+  extends:
+    - .default-cache
   stage: lint
   script:
     - npm run check:format
 
 build:
+  extends:
+    - .default-cache
   stage: build
   script:
     - npm run build
